@@ -2,6 +2,7 @@ import json
 import os
 from dotenv import load_dotenv
 from openai import OpenAI
+from pathlib import Path
 
 from tools.nodejs_qa import ask_nodejs_doc
 
@@ -19,30 +20,9 @@ available_tools = {
     },
 }
 
-system_prompt = f"""
-You are a helpful AI Assistant specialized in resolving queries using available tools.
-
-You work step-by-step: plan → action → observe → output.
-
-Available Tools:
-- ask_nodejs_doc: Takes a question about Node.js and returns related answers from docs.
-
-Output JSON Format:
-{{
-    "step": "string",
-    "content": "string",
-    "function": "The name of function if the step is action",
-    "input": "The input parameter for the function"
-}}
-
-Example:
-User Query: What is the FS module?
-Output: {{ "step": "plan", "content": "The user is asking about Node.js FS module" }}
-Output: {{ "step": "plan", "content": "I should use ask_nodejs_doc" }}
-Output: {{ "step": "action", "function": "ask_nodejs_doc", "input": "What is FS module?" }}
-Output: {{ "step": "observe", "output": "..." }}
-Output: {{ "step": "output", "content": "The FS module allows working with the file system..." }}
-"""
+prompt_path = Path(__file__).parent / "data" / "system_prompt.txt"
+with open(prompt_path, "r", encoding="utf-8") as file:
+    system_prompt = file.read()
 
 messages = [{"role": "system", "content": system_prompt}]
 
