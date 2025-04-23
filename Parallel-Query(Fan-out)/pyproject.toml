@@ -8,5 +8,6 @@ dependencies = [
     "langchain-community>=0.3.22",
     "langchain-google-genai>=2.1.3",
     "langchain-qdrant>=0.2.0",
+    "openai>=1.75.0",
     "pypdf>=5.4.0",
 ]
