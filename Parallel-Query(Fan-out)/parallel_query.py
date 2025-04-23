@@ -48,3 +48,22 @@ def parallel_query(
             retrieved_chunks.add(chunk.page_content)
 
     return list(retrieved_chunks)
+
+
+def get_final_answer(user_query, chunks):
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant..."},
+        {
+            "role": "user",
+            "content": f"User asked: {user_query}\n\nHere is some information:\n\n{'\n\n'.join(chunks)}",
+        },
+    ]
+
+    response = client.chat.completions.create(
+        model="gemini-2.0-flash",
+        response_format={"type": "json_object"},
+        n=1,
+        messages=messages,
+    )
+
+    return response.choices[0].message.content

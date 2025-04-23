@@ -1,4 +1,4 @@
-from parallel_query import parallel_query
+from parallel_query import parallel_query, get_final_answer
 
 
 def main():
@@ -7,14 +7,14 @@ def main():
         if query.lower() == "clear":
             break
 
-        results = parallel_query(query)
+        retrieved_chunks = parallel_query(query)
 
-        if not results:
+        if not retrieved_chunks:
             print("No relevant results found")
         else:
-            print("\nRelevant Results:\n")
-            for i, res in enumerate(results, 1):
-                print(f"{i}. {res}\n")
+            final_ans = get_final_answer(query, retrieved_chunks)
+
+            print(f"\nRelevant Result:\n{final_ans}")
 
 
 if __name__ == "__main__":
