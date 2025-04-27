@@ -43,6 +43,7 @@ def hyde(
 ):
     hypothetical_answer = generate_hypothetical_doc(user_query)
     retriever = get_retriever(qdrant_url, collection_name)
+    # print(hypothetical_answer)
 
     results = retriever.similarity_search(hypothetical_answer["answer"])
     return [doc.page_content for doc in results]

@@ -4,10 +4,10 @@ from HyDE import hyde, get_final_answer
 def logical_routing(user_query):
     user_query_lower = user_query.lower()
 
-    if "nodejs" in user_query_lower or "node.js" or "node" in user_query_lower:
-        collection = "nodejs-collection"
-    elif "python" in user_query_lower:
+    if "python" in user_query_lower:
         collection = "python-collection"
+    elif "nodejs" in user_query_lower or "node.js" in user_query_lower:
+        collection = "nodejs-collection"
     else:
         collection = None
 
