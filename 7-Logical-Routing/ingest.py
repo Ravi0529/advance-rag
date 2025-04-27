@@ -26,7 +26,7 @@ def ingest_pdf(pdf_path, collection_name):
 
     vector_store.add_documents(documents=split_docs)
 
-    print("Ingested successfully!")
+    print(f"Ingested successfully!, '{collection_name}'")
 
 
 def ingest_pdf_to_qdrant():
